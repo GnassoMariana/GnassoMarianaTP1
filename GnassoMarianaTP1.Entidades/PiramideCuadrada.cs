@@ -67,5 +67,26 @@ namespace GnassoMarianaTP1.Entidades
         {
             return $"Piramide de lado: {Lado} y altura: {Altura}";
         }
+
+        public string ValidarConMensaje()
+        {
+            var context = new ValidationContext(this);
+            var errores = new List<ValidationResult>();
+            bool esValido = Validator.TryValidateObject(this, context, errores, true);
+
+            if (esValido)
+            {
+                return this.ToString() ;
+            }
+            else
+            {
+                StringBuilder mensajeError = new StringBuilder();
+                foreach (var error in errores)
+                {
+                    mensajeError.AppendLine(error.ErrorMessage);
+                }
+                return mensajeError.ToString();
+            }
+        }
     }
 }
