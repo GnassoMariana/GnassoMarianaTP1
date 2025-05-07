@@ -1,4 +1,5 @@
 ﻿using GnassoMarianaTP1.Entidades;
+using System.ComponentModel.DataAnnotations;
 
 namespace GnassoMarianaTP1.Testing
 {
@@ -39,6 +40,36 @@ namespace GnassoMarianaTP1.Testing
             
         //}
 
+        [TestMethod]
+        public void InformarDatos_Correcto()
+        {
+            var piramide = new PiramideCuadrada(6, 12);
+            var datos = piramide.InformarDatos();
+            StringAssert.Contains(datos, "Volumen: 144");
+            StringAssert.Contains(datos, "Area: 184,4318");
+            StringAssert.Contains(datos, "Apotema: 12,3693");
+        }
 
+        [TestMethod]
+        public void ToString_Correcto()
+        {
+            var piramide = new PiramideCuadrada(6, 12);
+            var resultado = piramide.ToString();
+            Assert.AreEqual("Piramide de lado: 6 y altura: 12", resultado);
+
+        }
+
+        [TestMethod]
+        public void Validate_Errores()
+        {
+            var piramide = new PiramideCuadrada(0, -5);
+            var context = new ValidationContext(piramide);
+            var errores = new List<ValidationResult>();
+
+            var esValido = Validator.TryValidateObject(piramide, context, errores, true);
+
+            Assert.IsFalse(esValido);
+            Assert.AreEqual(2, errores.Count);
+        }
     }
 }
