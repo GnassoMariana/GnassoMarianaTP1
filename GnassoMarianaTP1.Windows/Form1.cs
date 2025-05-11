@@ -38,6 +38,8 @@ namespace GnassoMarianaTP1.Windows
                         piramides.Add(piramide);
                         piramidesListBox.Items.Add(mensaje);
                         ActualizarCantidad();
+                        MessageBox.Show($"{piramide.InformarDatos()}", "Datos ingresados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
 
                         var agregarMas = MessageBox.Show("Agregar otra piramide?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
